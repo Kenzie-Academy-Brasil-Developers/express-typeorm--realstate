@@ -1,6 +1,7 @@
 // prettier-ignore
-import { Entity, Column, PrimaryGeneratedColumn, UpdateDateColumn, CreateDateColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, UpdateDateColumn, CreateDateColumn, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { Schedule } from './schedules.entity';
 
 @Entity('users')
 export class User {
@@ -28,4 +29,7 @@ export class User {
 
   @Column({ default: true })
   readonly isActive: boolean;
+
+  @OneToMany(() => Schedule, (schedule) => schedule.user)
+  schedules: Schedule[];
 }

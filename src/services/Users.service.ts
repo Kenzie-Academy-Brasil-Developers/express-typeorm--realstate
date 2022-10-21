@@ -49,7 +49,7 @@ export default class UsersService {
   static async update({ name, email, password }: IUserRequest, id: string) {
     const user = await this.repository.findOneBy({ id });
     if (!user) {
-      throw new AppError('User not found', 400);
+      throw new AppError('User not found', 404);
     }
 
     const hashedKey = password && (await hash(password, 10));

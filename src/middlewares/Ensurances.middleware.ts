@@ -36,7 +36,7 @@ export default class Ensurances {
         next();
       } catch (error) {
         if (error instanceof Error) {
-          return response.status(401).send({ message: error.message });
+          throw new AppError(error.message, 401);
         }
       }
     };
