@@ -1,3 +1,10 @@
+import * as core from 'express-serve-static-core';
+import { Request } from 'express';
+import { User } from '../../entities/users.entity';
+
+export type UserRequest = Request<core.ParamsDictionary, User, IUserRequest>;
+export type UserUpdateRequest = Request<core.ParamsDictionary, User, IUserUpdate>;
+
 export interface IUserRequest {
   name: string;
   email: string;

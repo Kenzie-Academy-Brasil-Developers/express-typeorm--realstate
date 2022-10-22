@@ -8,10 +8,10 @@ export class Schedule {
   readonly id: string;
 
   @Column({ type: 'date' })
-  date: Date;
+  date: Date | string;
 
   @Column({ type: 'time' })
-  time: Date;
+  hour: Date | string;
 
   @ManyToOne(() => Property, { eager: true })
   property: Property;

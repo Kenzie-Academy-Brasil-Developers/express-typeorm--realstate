@@ -2,11 +2,11 @@ import { Request, Response } from 'express';
 import { instanceToPlain } from 'class-transformer';
 
 import services from '../services/Users.service';
-import { IUserRequest } from '../interfaces/users';
+import { UserRequest, UserUpdateRequest } from '../interfaces/users';
 
 export default class UsersController {
-  static async register(request: Request, response: Response) {
-    const user: IUserRequest = request.body;
+  static async register(request: UserRequest, response: Response) {
+    const user = request.body;
     const newUser = await services.register(user);
 
     return response.status(201).send(instanceToPlain(newUser));
@@ -18,9 +18,9 @@ export default class UsersController {
     return response.status(200).send(instanceToPlain(users));
   }
 
-  static async update(request: Request, response: Response) {
+  static async update(request: UserUpdateRequest, response: Response) {
     const { id } = request.params;
-    const updates: IUserRequest = request.body;
+    const updates = request.body;
 
     const updatedUser = await services.update(updates, id);
 

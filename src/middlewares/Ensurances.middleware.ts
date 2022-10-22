@@ -3,7 +3,8 @@ import jwt from 'jsonwebtoken';
 import 'dotenv/config';
 
 import AppError from '../error/AppError';
-import { Schemas } from '../serializers/users.serializer';
+import { ISerializerType } from '../interfaces/serializers';
+import Validations from '../serializers';
 
 export default class Ensurances {
   static async authentication(request: Request, _: Response, next: NextFunction) {
@@ -28,15 +29,23 @@ export default class Ensurances {
     );
   }
 
-  static fieldValidation(schemaType: 'register' | 'login' | 'update') {
-    return async (request: Request, response: Response, next: NextFunction) => {
+  static fieldValidation(schemaType: ISerializerType) {
+    return async (request: Request, _: Response, next: NextFunction) => {
       try {
-        await Schemas[schemaType].validate(request.body);
+        await Validations.serialize(schemaType, request);
 
         next();
       } catch (error) {
         if (error instanceof Error) {
-          throw new AppError(error.message, 401);
+          if (
+            ['userRegister', 'userUpdate'].every(
+              (schema) => schema !== schemaType
+            )
+          ) {
+            throw new AppError(error.message, 400);
+          } else {
+            throw new AppError(error.message, 401);
+          }
         }
       }
     };

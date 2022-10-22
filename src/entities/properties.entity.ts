@@ -1,4 +1,3 @@
-// prettier-ignore
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 import { Address } from './addresses.entity';
 import { Category } from './categories.entity';
@@ -29,7 +28,7 @@ export class Property {
   address: Address;
 
   @ManyToOne(() => Category)
-  categoryId: Category['id'];
+  category: Category['id'];
 
   @OneToMany(() => Schedule, (schedule) => schedule.property)
   schedules: Schedule[];

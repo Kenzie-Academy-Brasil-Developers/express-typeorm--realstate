@@ -4,6 +4,6 @@ import ensure from '../middlewares/Ensurances.middleware';
 
 export const categoriesRoutes = Router();
 
-categoriesRoutes.post('', ensure.onlyAdmin, categories.create);
+categoriesRoutes.post('', ensure.authentication, ensure.onlyAdmin, ensure.fieldValidation('createCategory'), categories.create);
 categoriesRoutes.get('', categories.read);
 categoriesRoutes.get('/:id/properties', categories.propertiesById);

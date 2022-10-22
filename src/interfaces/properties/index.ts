@@ -1,9 +1,10 @@
 import * as core from 'express-serve-static-core';
 import { Property } from '../../entities/properties.entity';
 import { Request, Response } from 'express';
-// prettier-ignore
+
 export type IPropRequest = Request<core.ParamsDictionary, Property, IPropertyRequest>
-export type IPropResponse = Response<IPropertyRequest>;
+export type PropResponse = Response<Property>;
+export type PropListResponse = Response<Property[]>;
 
 export interface IPropertyRequest {
   value: number;

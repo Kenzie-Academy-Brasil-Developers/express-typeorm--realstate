@@ -1,4 +1,3 @@
-// prettier-ignore
 import { Entity, Column, PrimaryGeneratedColumn, UpdateDateColumn, CreateDateColumn, OneToMany } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { Schedule } from './schedules.entity';

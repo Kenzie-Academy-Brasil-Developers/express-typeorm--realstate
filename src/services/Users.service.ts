@@ -1,7 +1,7 @@
 import AppDataSource from '../data-source';
 import { hash } from 'bcryptjs';
 import { User } from '../entities/users.entity';
-import { IActivityLog, IUserRequest } from '../interfaces/users';
+import { IActivityLog, IUserRequest, IUserUpdate } from '../interfaces/users';
 import AppError from '../error/AppError';
 
 export default class UsersService {
@@ -37,7 +37,7 @@ export default class UsersService {
       this.repository.create(newUser);
       await this.repository.save(newUser);
 
-      return newUser;
+      return newUser!;
     }
   }
 
@@ -46,7 +46,7 @@ export default class UsersService {
     return usersList;
   }
 
-  static async update({ name, email, password }: IUserRequest, id: string) {
+  static async update({ name, email, password }: IUserUpdate, id: string) {
     const user = await this.repository.findOneBy({ id });
     if (!user) {
       throw new AppError('User not found', 404);
