@@ -1,4 +1,4 @@
-version: "3.9"
+version: '3.9'
 
 services:
   api:
@@ -13,6 +13,7 @@ services:
         condition: service_healthy
     volumes:
       - .:/app
+    command: bash -c "yarn typeorm migration:run -d src/data-source && yarn dev"
 
   db:
     container_name: db
@@ -22,10 +23,8 @@ services:
     env_file:
       - .env
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"]
+      test: ['CMD-SHELL', 'pg_isready -U $POSTGRES_USER -d $POSTGRES_DB']
       interval: 10s
       timeout: 5s
       retries: 5
       start_period: 5s
-   
-
